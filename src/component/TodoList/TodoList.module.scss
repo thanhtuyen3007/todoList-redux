@@ -1,0 +1,69 @@
+.todoListContainer {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+
+}
+
+.todoListForm {
+  display: flex;
+}
+
+.todoListInput {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.todoListSelect {
+  width: 100%;
+  max-width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.todoListButton {
+  padding: 0 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.todoListButton:hover {
+  background-color: #0056b3;
+}
+
+.todoListTasks {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todoListTask {
+  font-size: 1.6rem;
+  color: #333;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.todoListTask.Low {
+  background-color: #d4edda;
+}
+
+.todoListTask.Medium {
+  background-color: #fff3cd;
+}
+
+.todoListTask.High {
+  background-color: #f8d7da;
+}
+
+.todoListTask.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.priority {
+  font-weight: bold;
+}
