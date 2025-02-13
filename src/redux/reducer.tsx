@@ -1,48 +1,19 @@
-const initState = {
-  filter: {
-    search: "",
-    completed: "All",
-    priority: [],
+import FilterReducer from "../component/Filter/FilterSliceReducer";
+import TodoListReducer from "../component/TodoList/TodoListSliceReducer";
+
+const initialState = {
+  filters: {
+    search: '',
+    completed: '',
+    priority: []
   },
-  todoList: [],
+  todoList: []
 };
-// interface Action {
-//   type: string;
-//   payload?: {
-//     id: number;
-//     title: string;
-//     completed: boolean;
-//     priority: string;
-//   };
-// }
 
-interface Action {
-  type: string;
-  payload?: {
-    id?: number;
-    title?: string;
-    completed?: boolean;
-    priority?: string;
-    search?: string;
+const rootReducer = (state = initialState, action) => {
+  return {
+    filters: FilterReducer(state.filters, action),
+    todoList: TodoListReducer(state.todoList, action),
   };
-}
-
-const rootReducer = (state = initState, action: Action) => {
-  switch (action.type) {
-    case "todoList/addTodo": {
-      return { ...state, todoList: [...state.todoList, action.payload] };
-    }
-    case "filter/searchText": {
-      return {
-        ...state,
-        filter: {
-          ...state.filter,
-          search: action.payload,
-        },
-      };
-    }
-    default:
-      return state;
-  }
 };
 export default rootReducer;

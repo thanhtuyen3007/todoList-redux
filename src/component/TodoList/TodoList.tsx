@@ -4,7 +4,7 @@ import styles from "./TodoList.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodoAction, Todo } from "../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
-import { todoListSelector, searchtextSelector } from "../../redux/selector";
+import { todoRemainingSelector } from "../../redux/selector";
 
 // Define the TodoList component
 const TodoList: React.FC = () => {
@@ -13,9 +13,7 @@ const TodoList: React.FC = () => {
   const [todoName, setTodoName] = React.useState("");
   const [priority, setPriority] = React.useState("Low");
   // Get the todo list and search text from the Redux store
-  const todoList = useSelector(todoListSelector);
-  const searchText = useSelector(searchtextSelector);
-  console.log(searchText);
+  const todoList = useSelector(todoRemainingSelector);
 
   // Function to handle the add button click
   const handleAddButton = () => {
@@ -49,6 +47,11 @@ const TodoList: React.FC = () => {
         <input
           value={todoName}
           onChange={handleInputChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAddButton();
+            }
+          }}
           type="text"
           placeholder="Add a new task"
           className={clsx(styles.todoListInput)}

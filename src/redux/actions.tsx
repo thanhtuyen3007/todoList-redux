@@ -26,7 +26,7 @@ export const addTodoAction = (data: Todo) => {
 }
 export const searchTextAction = (text : string) => {
   return {
-    type: "filter/searchText", 
+    type: "filters/searchText", 
     payload: text
   }
 }
