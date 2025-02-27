@@ -2,18 +2,21 @@
   display: block;
   width: 100%;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #333;
   padding: 10px;
 }
+
 .todoListTaskTitle {
   padding: 10px 0;
 }
-.todoListTaskPriority{
+
+.todoListTaskPriority {
   font-weight: 700;
   text-transform: capitalize;
 }
 
+// Styles for different priority levels
 .todoListTask.low {
   background-color: #d4edda;
 }
@@ -26,6 +29,7 @@
   background-color: #f8d7da;
 }
 
+// Style for completed tasks
 .todoListTask.completed {
   text-decoration: line-through;
   color: #6c757d;

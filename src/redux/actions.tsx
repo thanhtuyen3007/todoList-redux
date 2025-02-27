@@ -23,6 +23,18 @@ export const addTodoAction = (data: Todo) => {
     payload: data,
   };
 };
+export const toggleTodoAction = (id: string) => {
+  return {
+    type: "todoList/toggleTodo",
+    payload: id,
+  };
+};
+export const deleteTaskAction = (id : string) => {
+  return {
+    type: "todoList/deleteTask",
+    payload: id,
+  };
+}
 
 export const searchTextAction = (text: string) => {
   return {

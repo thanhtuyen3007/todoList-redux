@@ -1,42 +1,44 @@
-// Selector to get the search text from the Redux store
+// Selector to get the todo list from the Redux store
 export const todoListSelector = (state) => state.todoList;
+
+// Selector to get the search text from the Redux store
 export const searchTextSelector = (state) => state.filters.search;
+
+// Selector to get the filter status from the Redux store
 export const filterStatusSelector = (state) => state.filters.status;
+
+// Selector to get the filter priority from the Redux store
 export const filterPrioritySelector = (state) => state.filters.priority;
 
-// // Selector to get the filtered todo list based on the search text
-// export const todoListSelector = (state) => {
-//   const searchText = searchtextSelector(state);
-//   // Filter the todo list based on the search text
-//   const todoRemaining = state.todoList.filter((todo) => {
-//     return todo.title.includes(searchText);
-//   });
-//   return todoRemaining;
-// };
-
-// use library reselect
+// Use the reselect library to create a memoized selector
 import { createSelector } from "reselect";
+
+// Selector to get the filtered todo list based on the search text, status, and priority
 export const todoRemainingSelector = createSelector(
   todoListSelector,
   filterStatusSelector,
   searchTextSelector,
   filterPrioritySelector,
   (todoList, status, searchText, priority) => {
-    console.log(todoList, status, searchText, priority);
     return todoList.filter((todo) => {
-        if (status === "all" && priority === "all") {
-          return todo.title.includes(searchText);
-        }
-        if (status === "all") {
-          return todo.title.includes(searchText) && todo.priority === priority;
-        }
-        if (priority === "all") {
-          return todo.title.includes(searchText) && todo.completed === (status === "completed");
-        } else {
-          return todo.title.includes(searchText) && todo.completed === (status === "completed") && todo.priority === priority;}
-      // const matchesStatus = status === "all" || (status === "completed" ? todo.completed : !todo.completed);
-      // const matchesPriority = priority === "all" || todo.priority === priority;
-      // return todo.title.includes(searchText) && matchesStatus && matchesPriority;
+      if (status === "all" && priority === "all") {
+        return todo.title.includes(searchText);
+      }
+      if (status === "all") {
+        return todo.title.includes(searchText) && todo.priority === priority;
+      }
+      if (priority === "all") {
+        return (
+          todo.title.includes(searchText) &&
+          todo.completed === (status === "completed")
+        );
+      } else {
+        return (
+          todo.title.includes(searchText) &&
+          todo.completed === (status === "completed") &&
+          todo.priority === priority
+        );
+      }
     });
   }
 );
