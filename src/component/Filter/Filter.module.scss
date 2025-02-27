@@ -16,12 +16,20 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  text-transform: capitalize;
 }
+.filterCheckboxContainer{
+  display: flex;
+  gap: 10px;
 
+}
 .filterCheckboxLabel {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #000;
+  font-size: 1.6rem;
+  text-transform: capitalize;
 }
 
 .filterCheckbox {

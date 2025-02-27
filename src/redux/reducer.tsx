@@ -1,19 +1,11 @@
-import FilterReducer from "../component/Filter/FilterSliceReducer";
-import TodoListReducer from "../component/TodoList/TodoListSliceReducer";
+import { combineReducers } from "redux"; // Import combineReducers from redux
+import FilterReducer from "../component/Filter/FilterSliceReducer"; // Import FilterReducer from FilterSliceReducer file
+import TodoListReducer from "../component/TodoList/TodoListSliceReducer"; // Import TodoListReducer from TodoListSliceReducer file
 
-const initialState = {
-  filters: {
-    search: '',
-    completed: '',
-    priority: []
-  },
-  todoList: []
-};
+// Combine the filter and todo list reducers into a root reducer
+const rootReducer = combineReducers({
+  filters: FilterReducer, // Assign FilterReducer to filters key
+  todoList: TodoListReducer, // Assign TodoListReducer to todoList key
+});
 
-const rootReducer = (state = initialState, action) => {
-  return {
-    filters: FilterReducer(state.filters, action),
-    todoList: TodoListReducer(state.todoList, action),
-  };
-};
-export default rootReducer;
+export default rootReducer; // Export the rootReducer as the default export

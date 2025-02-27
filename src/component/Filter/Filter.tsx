@@ -2,19 +2,42 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./Filter.module.scss";
 import { useDispatch } from "react-redux";
-import { searchTextAction } from "../../redux/actions";
+import {
+  filterPriorityAction,
+  filterStatusAction,
+  searchTextAction,
+} from "../../redux/actions";
+
+// List of filter options
+const filterCompletedList = ["all", "completed", "todo"];
 
 // Define the Filter component
 const Filter = () => {
   const dispatch = useDispatch();
-  // State for search text
+  // State for search text, checkbox, and priority
   const [searchText, setSearchText] = React.useState("");
+  const [checked, setChecked] = React.useState("all");
+  const [priority, setPriority] = React.useState("all");
 
   // Function to handle search text change
   const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
     // Dispatch an action to update the search text in the Redux store
     dispatch(searchTextAction(e.target.value));
+  };
+
+  // Function to handle checkbox change
+  const handleFilterStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.value);
+    // Dispatch an action to update the filter status in the Redux store
+    dispatch(filterStatusAction(e.target.value));
+  };
+
+  // Function to handle priority change
+  const handleChangePriority = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPriority(e.target.value);
+    // Dispatch an action to update the filter priority in the Redux store
+    dispatch(filterPriorityAction(e.target.value));
   };
 
   return (
@@ -28,17 +51,32 @@ const Filter = () => {
         className={clsx(styles.filterInput)}
       />
       {/* Dropdown for task priority */}
-      <select className={clsx(styles.filterSelect)}>
-        <option value="">All Priorities</option>
+      <select
+        value={priority}
+        onChange={handleChangePriority}
+        className={clsx(styles.filterSelect)}
+      >
+        <option value="all">All Priorities</option>
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
       {/* Checkbox to show completed tasks */}
-      <label className={clsx(styles.filterCheckboxLabel)}>
-        <input type="checkbox" className={clsx(styles.filterCheckbox)} />
-        Show Completed
-      </label>
+      <div className={clsx(styles.filterCheckboxContainer)}>
+        {filterCompletedList.map((value) => (
+          <label key={value} className={clsx(styles.filterCheckboxLabel)}>
+            <input
+              onChange={handleFilterStatus}
+              type="radio"
+              name="status"
+              value={value}
+              checked={value === checked}
+              className={clsx(styles.filterCheckbox)}
+            />
+            {value}
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

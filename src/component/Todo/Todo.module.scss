@@ -1,0 +1,32 @@
+.todoListTask {
+  display: block;
+  width: 100%;
+  border: none;
+  font-size: 1.4rem;
+  color: #333;
+  padding: 10px;
+}
+.todoListTaskTitle {
+  padding: 10px 0;
+}
+.todoListTaskPriority{
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.todoListTask.low {
+  background-color: #d4edda;
+}
+
+.todoListTask.medium {
+  background-color: #fff3cd;
+}
+
+.todoListTask.high {
+  background-color: #f8d7da;
+}
+
+.todoListTask.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}

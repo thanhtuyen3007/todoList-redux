@@ -2,17 +2,19 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./TodoList.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodoAction, Todo } from "../../redux/actions";
+import { addTodoAction, Todo as TodoType } from "../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
 import { todoRemainingSelector } from "../../redux/selector";
+import Todo from "../Todo/Todo";
 
 // Define the TodoList component
 const TodoList: React.FC = () => {
   const dispatch = useDispatch();
+
   // State for input value and priority
   const [todoName, setTodoName] = React.useState("");
-  const [priority, setPriority] = React.useState("Low");
-  // Get the todo list and search text from the Redux store
+  const [priority, setPriority] = React.useState("low");
+  // Get the filtered todo list from the Redux store
   const todoList = useSelector(todoRemainingSelector);
 
   // Function to handle the add button click
@@ -27,7 +29,7 @@ const TodoList: React.FC = () => {
       })
     );
     setTodoName(""); // Clear the input field
-    setPriority("Low"); // Reset the priority
+    setPriority("low"); // Reset the priority
   };
 
   // Function to handle input change
@@ -62,9 +64,9 @@ const TodoList: React.FC = () => {
           onChange={handleSelectChange}
           className={clsx(styles.todoListSelect)}
         >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
         {/* Button to add the task */}
         <button
@@ -75,20 +77,17 @@ const TodoList: React.FC = () => {
         </button>
       </div>
       {/* List of tasks */}
-      <ul className={clsx(styles.todoListTasks)}>
-        {todoList.map((task: Todo, index: number) => (
-          <li
+      <div className={clsx(styles.todoListTasks)}>
+        {todoList.map((task: TodoType, index: number) => (
+          <Todo
             key={index}
-            className={clsx(styles.todoListTask, styles[task.priority], {
-              [styles.completed]: task.completed,
-            })}
-            // onClick={() => handleToggleComplete(index)}
-          >
-            {task.title} -{" "}
-            <span className={clsx(styles.priority)}>{task.priority}</span>
-          </li>
+            id={task.id}
+            title={task.title}
+            priority={task.priority}
+            status={task.completed}
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

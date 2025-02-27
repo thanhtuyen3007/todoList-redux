@@ -17,17 +17,28 @@ export interface Todo {
   priority: string;
 }
 
-
 export const addTodoAction = (data: Todo) => {
   return {
     type: "todoList/addTodo",
     payload: data,
   };
-}
-export const searchTextAction = (text : string) => {
-  return {
-    type: "filters/searchText", 
-    payload: text
-  }
-}
+};
 
+export const searchTextAction = (text: string) => {
+  return {
+    type: "filters/searchText",
+    payload: text,
+  };
+};
+export const filterStatusAction = (status: string) => {
+  return {
+    type: "filters/status",
+    payload: status,
+  };
+};
+export const filterPriorityAction = (priority: string) => {
+  return {
+    type: "filters/priority",
+    payload: priority,
+  };
+};
