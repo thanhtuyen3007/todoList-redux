@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./Todo.module.scss";
 import { useDispatch } from "react-redux";
-import { deleteTaskAction, toggleTodoAction } from "../../redux/actions";
+import { todoListSlice } from "../TodoList/TodoListSliceReducer";
 
 // Interface for the props that the Todo component will receive
 interface TodoProps {
@@ -21,7 +21,7 @@ const Todo: React.FC<TodoProps> = ({ id, title, priority, status }) => {
   // Function to toggle the completed status of the task
   const toggleCompleted = () => {
     setCompleted(!completed);
-    dispatch(toggleTodoAction(id));
+    dispatch(todoListSlice.actions.toggleTodo(id));
   };
 
   return (

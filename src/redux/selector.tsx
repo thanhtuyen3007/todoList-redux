@@ -11,7 +11,7 @@ export const filterStatusSelector = (state) => state.filters.status;
 export const filterPrioritySelector = (state) => state.filters.priority;
 
 // Use the reselect library to create a memoized selector
-import { createSelector } from "reselect";
+import { createSelector } from "@reduxjs/toolkit";
 
 // Selector to get the filtered todo list based on the search text, status, and priority
 export const todoRemainingSelector = createSelector(

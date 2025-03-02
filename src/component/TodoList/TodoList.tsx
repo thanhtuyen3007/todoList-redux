@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import clsx from "clsx";
 import styles from "./TodoList.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodoAction, Todo as TodoType } from "../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
 import { todoRemainingSelector } from "../../redux/selector";
 import Todo from "../Todo/Todo";
+import { todoListSlice } from "./TodoListSliceReducer";
 
 // Define the TodoList component
 const TodoList: React.FC = () => {
@@ -24,8 +24,8 @@ const TodoList: React.FC = () => {
     const storedTasks = localStorage.getItem("todoList");
     if (storedTasks) {
       const tasks = JSON.parse(storedTasks);
-      tasks.forEach((task: TodoType) => {
-        dispatch(addTodoAction(task));
+      tasks.forEach((task) => {
+        dispatch(todoListSlice.actions.addTodo(task));
       });
     }
   }, [dispatch]);
@@ -39,7 +39,7 @@ const TodoList: React.FC = () => {
       priority: priority,
     };
     // Dispatch an action to add a new task
-    dispatch(addTodoAction(newTask));
+    dispatch(todoListSlice.actions.addTodo(newTask));
     // Save the updated todo list to localStorage
     localStorage.setItem("todoList", JSON.stringify([...todoList, newTask]));
     setTodoName(""); // Clear the input field
@@ -94,7 +94,7 @@ const TodoList: React.FC = () => {
       </div>
       {/* List of tasks */}
       <div className={clsx(styles.todoListTasks)}>
-        {todoList.map((task: TodoType, index: number) => (
+        {todoList.map((task, index: number) => (
           <Todo
             key={index}
             id={task.id}

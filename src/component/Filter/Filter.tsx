@@ -2,11 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import styles from "./Filter.module.scss";
 import { useDispatch } from "react-redux";
-import {
-  filterPriorityAction,
-  filterStatusAction,
-  searchTextAction,
-} from "../../redux/actions";
+import { filterSlice } from "./FilterSliceReducer.tsx";
 
 // List of filter options
 const filterCompletedList = ["all", "completed", "todo"];
@@ -23,21 +19,21 @@ const Filter = () => {
   const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
     // Dispatch an action to update the search text in the Redux store
-    dispatch(searchTextAction(e.target.value));
+    dispatch(filterSlice.actions.searchText(e.target.value));
   };
 
   // Function to handle checkbox change
   const handleFilterStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.value);
     // Dispatch an action to update the filter status in the Redux store
-    dispatch(filterStatusAction(e.target.value));
+    dispatch(filterSlice.actions.status(e.target.value));
   };
 
   // Function to handle priority change
   const handleChangePriority = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPriority(e.target.value);
     // Dispatch an action to update the filter priority in the Redux store
-    dispatch(filterPriorityAction(e.target.value));
+    dispatch(filterSlice.actions.priority(e.target.value));
   };
 
   return (
